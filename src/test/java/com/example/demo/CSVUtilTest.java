@@ -1,13 +1,17 @@
 package com.example.demo;
 
 import com.example.demo.model.Player;
+import com.example.demo.repository.PlayerReactiveRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SpringBootTest
 public class CSVUtilTest {
 
     @Test
@@ -56,6 +60,15 @@ public class CSVUtilTest {
         assert listFilter.block().size() == 322;
     }
 
+    @Autowired
+    PlayerReactiveRepository playerReactiveRepository;
+
+    @Test
+    void reactive_ConverterData(){
+        Flux<Player> list = playerReactiveRepository.findAll();
+        var tamanio = list.count();
+        assert tamanio.block() == 18207;
+    }
 
 
 }

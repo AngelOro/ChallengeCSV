@@ -30,4 +30,5 @@ public class Controller {
         model.addAttribute("players", new ReactiveDataDriverContextVariable(userFlux, 1));
         return "players";
     }
+
 }
